@@ -1,62 +1,47 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SquareDigits {
-	private List<Integer> _tList;
+	final int DIVISOR = 10;
+	List<Integer> _squaredDigits;
 	
-	public SquareDigits()
-	{
-		_tList = new ArrayList<Integer>();
+	public SquareDigits() {
+		_squaredDigits = new ArrayList<Integer>();
 	}
 	
-	public int S(int x)
-	{
-		int result = 0;
-		String s = Integer.toString(x);
-		for (char c: s.toCharArray())
-		{
-			result += Math.pow(c - '0', 2);
-		}
-		
-		return result;
+	public List<Integer> getSquaredDigits() {
+		return _squaredDigits;
 	}
 	
-	public void T(int x)
-	{
-		_tList.add(S(x));
-
-		int temp;
-		while (true)
-		{
-			temp = S(_tList.get(_tList.size() - 1));
-			if (_tList.contains(temp))
-			{
-				return;
-			}
-			else
-			{
-				_tList.add(temp);
-			}
-		}
-	}
-	
-	public int smallestResult(int param0)
-	{
-		int smallestResult = 0;
-		
-		while (true)
-		{
-			_tList.clear();
-			T(smallestResult);
-			
-			if (_tList.contains(param0))
-			{
+	public int smallestResult(int n) {
+		int x = 0;
+		while (true) {
+			T(x);
+			if (_squaredDigits.contains(n)) {
 				break;
 			}
-			++smallestResult;
+			++x;
 		}
+	
+		return x;
+	}
+	
+	// TODO Change to private. Public for J-Unit testing
+	public int S(int x) {
+		if (x < DIVISOR) {
+			return (int) Math.pow(x, 2);
+		}
+		return (int) (S(x / DIVISOR) + Math.pow((x % DIVISOR),2));
+	}
+	
+	// TODO Change to private. Public for J-Unit testing
+	public void T(int x) {
+		_squaredDigits.clear();
 		
-		return smallestResult;
+		int squared = S(x);
+		while (!_squaredDigits.contains(squared)) {
+			_squaredDigits.add(squared);
+			squared = S(squared);
+		}
 	}
 }
