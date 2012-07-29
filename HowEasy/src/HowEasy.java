@@ -1,53 +1,45 @@
-import java.util.StringTokenizer;
-
 
 public class HowEasy {
-	public HowEasy()
-	{
-		
+
+	public HowEasy() {
 	}
-	
-	public int pointVal(String sentence)
-	{
-		int points = 0;
+
+	public int pointVal(String problemStatement) {
 		int numWords = 0;
-		int wordLength = 0;
-		
-		StringTokenizer st = new StringTokenizer(sentence);
-		while (st.hasMoreTokens())
-		{
-			String token = st.nextToken();
-			if (token.matches("[a-zA-Z]+\\.?$"))
-			{
+		int lengthOfWords = 0;
+
+		String[] words = problemStatement.split(" ");
+		for (String word: words) {
+			if (isWord(word)) {
 				++numWords;
-				wordLength += token.length();
-				
-				if (token.matches(".*\\.$"))
-				{
-					wordLength -= 1;
+				lengthOfWords += word.length();
+				if (word.contains(".")) {
+					-- lengthOfWords;
 				}
 			}
 		}
-		
-		if (numWords == 0)
-		{
+
+		return calcPoints(lengthOfWords, numWords);
+	}
+
+	public int calcPoints(int lengthOfWords, int numWords) {
+		if (numWords <= 0)
 			return 250;
+
+		int avg = lengthOfWords / numWords;
+		if (avg <= 3) {
+			return 250;
+		} else if (avg >= 6) {
+			return 1000;
+		} else {
+			return 500;
 		}
-		
-		int avg = wordLength / numWords;
-		if (avg <= 3)
-		{
-			points = 250;
+	}
+
+	public boolean isWord(String token) {
+		if (token.matches("[a-zA-z]+\\.?")) {
+			return true;
 		}
-		else if (avg == 4 || avg == 5)
-		{
-			points = 500;
-		}
-		else
-		{
-			points = 1000;
-		}
-		
-		return points;
+		return false;
 	}
 }
