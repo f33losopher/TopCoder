@@ -10,10 +10,6 @@ public class Prerequisites {
 			_course = course;
 			_prereqs = new ArrayList<String>();
 		}
-
-		public void addPrereq(String prereq) {
-			_prereqs.add(prereq);
-		}
 	}
 
 	public List<ClassAndPrereq> _classes;
@@ -27,13 +23,13 @@ public class Prerequisites {
 	// }
 
 	public boolean parseSchedule(String schedule) {
+		if (schedule.matches(".*\\s+")) {
+			System.out.println("Trailing space");
+			return false;
+		}
+		
 		String[] classes = schedule.split(" ");
 		ClassAndPrereq classAndPrereq;
-		
-		for (String c: classes) {
-			System.out.print(c + " ");
-		}
-		System.out.println();
 
 		if (classes[0].matches("[A-Z]{3,4}[1-9][0-9]{2}:$")) {
 			// Strip off the colon at the end
@@ -45,7 +41,7 @@ public class Prerequisites {
 
 		for (int i = 1; i < classes.length; ++i) {
 			if (classes[i].matches("[A-Z]{3,4}[1-9][0-9]{2}")) {
-				classAndPrereq.addPrereq(classes[i]);
+				classAndPrereq._prereqs.add(classes[i]);
 			} else {
 				return false;
 			}
