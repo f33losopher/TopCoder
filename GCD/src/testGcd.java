@@ -13,6 +13,8 @@ public class testGcd {
 		
 		assertEquals(gcd.otherGcd(2336, 1314), 146);
 		assertEquals(gcd.otherGcd(1314, 2336), 146);
+		
+		assertEquals(gcd.LCM(6, 9), 18);
 	}
 	
 }
