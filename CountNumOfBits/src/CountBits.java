@@ -20,15 +20,12 @@ public class CountBits {
 	}
 	
 	void printBits(int x) {
-		int mask = 0x1 << 31;
-		for (int i=0; i < 32; i++) {
-			if ((x & mask) == mask) {
-				System.out.print(1);
-			}
-			else {
-				System.out.print(0);
-			}
-			x <<= 1;
+		String string = "01";
+		String result = "";
+		while (x > 0) {
+			result = string.charAt(x%2) + result;
+			x /= 2;
 		}
+		System.out.println(result);
 	}
 }
