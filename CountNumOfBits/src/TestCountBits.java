@@ -9,8 +9,18 @@ public class TestCountBits {
 
 	@Test
 	public void test() {
-		assertEquals(test.numBits(7), 3);
-		assertEquals(test.numBits(27), 4);
+		assertEquals(3, test.numBits(7));
+		assertEquals(4, test.numBits(27));
+		
+		assertEquals(1, test.nextBiggerNumWithSameBits(0));
+		assertEquals(4, test.nextBiggerNumWithSameBits(2));
+		assertEquals(5, test.nextBiggerNumWithSameBits(3));
+		assertEquals(81, test.nextBiggerNumWithSameBits(76));
+		assertEquals(99, test.nextBiggerNumWithSameBits(92));
+		assertEquals(11, test.nextBiggerNumWithSameBits(7));
+		assertEquals(207, test.nextBiggerNumWithSameBits(190));
+		assertEquals(9, test.nextBiggerNumWithSameBits(6));
+		
 	}
 
 }
