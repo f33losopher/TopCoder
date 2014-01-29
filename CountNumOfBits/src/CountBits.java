@@ -20,9 +20,6 @@ public class CountBits {
 	}
 	
 	int nextBiggerNumWithSameBits(int x) {
-		
-		System.out.println("x has bits:");
-		printBits(x);
 		// Find the next bigger number with the same number of bits
 		// There are 2 cases:
 		// 1: the lowest 1 bit is alone, simply shift it left
@@ -33,35 +30,33 @@ public class CountBits {
 			return 1;
 		}
 		
-		int bitPos = 0;
+		int new1Bit = 0x1;
 		while (true) {
-			if ((0x1 << bitPos & x) > 0) break;
-			bitPos++;
+			if ((new1Bit & x) > 0) break;
+			new1Bit <<= 1;
 		}
 		
 		// CASE: 1
-		if ((0x1 << (bitPos+1) & x) == 0) {
-			int mask = (0x1 << bitPos+1);
-			x &= ~(mask -1);
-			x |= mask;
+		if (((new1Bit << 1) & x) == 0) {
+			new1Bit <<= 1;;
+			x &= ~(new1Bit -1);
+			x |= new1Bit;
 			return x;
 		}
 		
 		// CASE: 2
 		int num1Bits=1;
-		bitPos++;
+		new1Bit <<= 1;
 		while (true) {
-			if ((0x1 << bitPos & x) == 0) break;
-			bitPos++;
+			if ((new1Bit & x) == 0) break;
+			new1Bit <<= 1;
 			num1Bits++;
 		}
 
-		x &= ~((0x1 << bitPos) - 1);
-		x |= (0x1 << bitPos);
+		x &= ~(new1Bit - 1);
+		x |= (new1Bit);
 		x |= (int) (Math.pow(2, (num1Bits-1)) - 1);
-		
-		System.out.println("Next bigger number with same bits: " + x);
-		printBits(x);
+
 		return x;
 	}
 	
