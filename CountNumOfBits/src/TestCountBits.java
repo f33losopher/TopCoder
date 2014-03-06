@@ -21,6 +21,16 @@ public class TestCountBits {
 		assertEquals(207, test.nextBiggerNumWithSameBits(190));
 		assertEquals(9, test.nextBiggerNumWithSameBits(6));
 		
+		assertEquals(1, test.anotherNextBigNumSameBits(0));
+		assertEquals(4, test.anotherNextBigNumSameBits(2));
+		assertEquals(5, test.anotherNextBigNumSameBits(3));
+		assertEquals(81, test.anotherNextBigNumSameBits(76));
+		assertEquals(99, test.anotherNextBigNumSameBits(92));
+		assertEquals(11, test.anotherNextBigNumSameBits(7));
+		assertEquals(207, test.anotherNextBigNumSameBits(190));
+		assertEquals(9, test.anotherNextBigNumSameBits(6));
+		
+		test.nextSmallNumSameBits(6);
 	}
 
 }
