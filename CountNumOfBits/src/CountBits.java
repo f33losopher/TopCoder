@@ -84,4 +84,11 @@ public class CountBits {
 		}
 		System.out.println(result);
 	}
+	
+	boolean powerOf2(int x) {
+		if ((x & (x-1)) == 0) {
+			return true;
+		}
+		return false;
+	}
 }

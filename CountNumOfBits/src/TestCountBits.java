@@ -32,5 +32,13 @@ public class TestCountBits {
 		
 		test.nextSmallNumSameBits(6);
 	}
+	
+	@Test
+	public void testPow2() {
+		assertEquals(true, test.powerOf2(8));
+		assertEquals(true, test.powerOf2(256));
+		assertEquals(true, test.powerOf2(16));
+		assertEquals(false, test.powerOf2(20));
+	}
 
 }
