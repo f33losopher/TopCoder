@@ -10,7 +10,8 @@ public class TestBinarySearch {
 			numbers[i] = i+1;
 		}
 		
-		Node rootNode = myBst.buildTree(numbers, 0, nums-1 );
+//		Node rootNode = myBst.buildTree(numbers, 0, nums-1 );
+		Node rootNode = myBst.buildTree(numbers);
 		if (myBst.isBalanced(rootNode)) {
 			System.out.println("balanced");
 		}

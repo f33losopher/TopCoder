@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class BinarySearchTree {
 	public BinarySearchTree() {
 	}
@@ -14,13 +16,36 @@ public class BinarySearchTree {
 		return node;
 	}
 
+	public Node buildTree(int[] sortedNumbers) {
+		if (sortedNumbers.length == 0) {
+			return null;
+		}
+
+		int mid = sortedNumbers.length / 2;
+		Node node = new Node(sortedNumbers[mid]);
+		try {
+			node.myLeft = buildTree(Arrays.copyOfRange(sortedNumbers, 0, mid));
+		} catch (IllegalArgumentException e) {
+			node.myLeft = null;
+		}
+
+		try {
+			node.myRight = buildTree(Arrays.copyOfRange(sortedNumbers, mid + 1,
+					sortedNumbers.length));
+		} catch (IllegalArgumentException e) {
+			node.myRight = null;
+		}
+
+		return node;
+	}
+
 	public boolean isBalanced(Node root) {
 		int maxLev = maxDepth(root);
 		int minLev = minDepth(root);
 
 		System.out.println("Max: " + maxLev);
 		System.out.println("Min: " + minLev);
-		
+
 		if (maxLev - minLev <= 1) {
 			return true;
 		}
@@ -33,31 +58,33 @@ public class BinarySearchTree {
 
 		int left = maxDepth(node.myLeft);
 		int right = maxDepth(node.myRight);
-		
+
 		return (left > right) ? (left + 1) : (right + 1);
 	}
-	
+
 	public int minDepth(Node node) {
 		if (node == null)
 			return 0;
-		
+
 		int left = minDepth(node.myLeft);
 		int right = minDepth(node.myRight);
-		
+
 		return (left < right) ? (left + 1) : (right + 1);
 	}
-	
+
 	public boolean contains(Node node, int value) {
 		boolean leftContains = false;
 		boolean rightContains = false;
-		
-		if (node == null) return false;
-		
-		if (node.myValue == value) return true;
-		
+
+		if (node == null)
+			return false;
+
+		if (node.myValue == value)
+			return true;
+
 		leftContains = contains(node.myLeft, value);
 		rightContains = contains(node.myRight, value);
-		
+
 		return (leftContains | rightContains);
 	}
 }
